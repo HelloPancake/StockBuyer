@@ -6,8 +6,9 @@ function Home (props) {
 
     return(
         <div className="home">
-            <Link to="/sign_in">Sign in</Link>
-            <Link to="/sign_up">Sign up</Link>
+            <div>Stock Bets</div>
+            <div><Link to="/sign_in">Sign in</Link></div>
+            <div><Link to="/sign_up">Sign up</Link></div>
         </div>
     )
 }

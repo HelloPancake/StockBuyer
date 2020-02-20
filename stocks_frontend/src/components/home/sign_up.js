@@ -18,14 +18,25 @@ function SignUp(props) {
         setEmail(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        const user = {email, name:username, password};
         e.preventDefault()
+        let response = await fetch('http://localhost:3001/user/signup', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user})
+        })
+        console.log(await response.json())
+
+
     }
 
     return (
-        <div>
+        <div className="home">
             <form onSubmit={handleSubmit}>
-                <label>
+                <label className="formAttributes">
                     <div>Stock Bets</div>
                     username: <input type="text" value={username} onChange={handleUsernameChange} />
                     password: <input type="text" value={password} onChange={handlePasswordChange} />

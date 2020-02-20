@@ -20,12 +20,12 @@ const SignIn = (props) => {
 
  
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className = "home">
+            <form onSubmit={handleSubmit} className="formAttributes">
                 <label>
                     <div>Stock Bets</div>
-                    username:<input type="text" value={username} onChange={handleUsernameChange} />
-                    password:<input type="text" value={password} onChange={handlePasswordChange} />
+                    <div>username:<input type="text" value={username} onChange={handleUsernameChange} /></div>
+                    <div>password:<input type="text" value={password} onChange={handlePasswordChange} /></div>
                 </label>
                 <input type="submit" value="Submit" />
             </form>

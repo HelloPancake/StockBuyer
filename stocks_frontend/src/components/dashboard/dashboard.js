@@ -1,6 +1,6 @@
 import React from 'react';
-import Portfolio from './portfolio';
-import StockSearch from './StockSearch';
+import Portfolio from './portfolio/portfolio';
+import StockSearch from './buy_stock/StockSearch';
 
 
 const Dashboard = (props) => {
