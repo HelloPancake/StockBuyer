@@ -5,10 +5,15 @@ import {Link} from "react-router-dom";
 function Home (props) {
 
     return(
-        <div id="home_card" className="ui centered card" style={{ height: "30vh", marginTop: "30vh" }} >
+        <div className ="ui middle aligned center aligned grid">
+            <div className="column">
+            <div className="ui card" > 
                 <div className="center aligned header">Stock Bets</div> 
-                <Link to="/sign_in" className="ui primary button" style={{ width: "70%"}}>Sign in</Link>
-                <Link to="/sign_up" id="secondhomebutton" className="ui primary button" style={{ width: "70%",  marginTop:"2vh" }}>Sign up</Link> 
+                <Link to="/sign_in" >Sign in</Link> 
+                <Link to="/sign_up" >Sign up</Link> 
+           </div>
+                
+            </div>
         </div>
     )
 }

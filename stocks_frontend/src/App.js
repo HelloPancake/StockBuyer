@@ -19,7 +19,7 @@ function App(){
 
     return(
       <Router>
-        <div>
+    
           <Switch>
             <Route path="/dashboard">
               <Dashboard />
@@ -34,7 +34,7 @@ function App(){
               <Home />
             </Route>
           </Switch>
-        </div>
+   
       </Router>
     )
 }
