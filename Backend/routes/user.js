@@ -2,11 +2,11 @@ const express = require('express')
 const userRouter = express.Router();
 const BCrypt = require('bcrypt')
 const User = require('../db/models/user')
-// const connect = require('../db/database_config')
+const connect = require('../db/database_config')
 
 
-userRouter.get('/signin', async (req, res) => {
-    if (checkAuthenticatedUser(req.user)){
+userRouter.post('/signin', async (req, res) => {
+    if (await checkAuthenticatedUser(req.body.user)){
         console.log("its the right user")
         res.status(200).json({message: "all good"})
     }
@@ -28,8 +28,6 @@ userRouter.post('/signup', async (req, res) => {
     }
     res.status(200).json({message: "all good"})
 });
-
-
 
 // async function test(){
 //     await connect();

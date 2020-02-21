@@ -13,8 +13,17 @@ const SignIn = (props) => {
         setPassword(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        const user = { email: username, password };
         e.preventDefault()
+        let response = await fetch('http://localhost:3001/user/signin', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user })
+        })
+        console.log(await response.json())
     }
 
 
