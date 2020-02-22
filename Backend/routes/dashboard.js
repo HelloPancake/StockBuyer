@@ -4,6 +4,7 @@ const User = require('../db/models/user')
 // const Transaction = require('../db/models/transaction')
 const connect = require('../db/database_config')
 
+
 dashBoardRouter.get('/', async (req, res) => {
     res.json({message: "get"})
 });
@@ -22,34 +23,34 @@ dashBoardRouter.post('/transactions', async (req, res) => {
 });
 
 
-async function test(){
-    await connect()
-    await User.collection.drop()
-    await User.create({
-        name: "Richard", email: "richard@yahoo.com", password: "hello"
-    });
-    let found = await User.findOne({name:"Richard"})
-    console.log(found.portfolio[0])
-    let transaction = {
-        status: "Sell",
-        company: "Alphabet",
-        ticker: "Google",
-        price: 25,
-        numShares: 10
-    }
-    found.transactions.push(transaction)
+// async function test(){
+//     await connect()
+//     await User.collection.drop()
+//     await User.create({
+//         name: "Richard", email: "richard@yahoo.com", password: "hello"
+//     });
+//     let found = await User.findOne({name:"Richard"})
+//     console.log(found.portfolio[0])
+//     let transaction = {
+//         status: "Sell",
+//         company: "Alphabet",
+//         ticker: "Google",
+//         price: 25,
+//         numShares: 10
+//     }
+//     found.transactions.push(transaction)
 
-    try {
-        await found.save()
+//     try {
+//         await found.save()
       
-    }
-    catch (error){
-        console.log('messed up')
-        console.log(error)
-    }
-}
+//     }
+//     catch (error){
+//         console.log('messed up')
+//         console.log(error)
+//     }
+// }
 
-test()
+// test()
 
 
 

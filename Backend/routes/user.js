@@ -1,12 +1,12 @@
 const express = require('express')
 const userRouter = express.Router();
-const BCrypt = require('bcrypt')
 const User = require('../db/models/user')
 const connect = require('../db/database_config')
+const { generate_token, verify_token} = require('../util/session_token')
 
 
 userRouter.post('/signin', async (req, res) => {
-    if (await checkAuthenticatedUser(req.body.user)){
+    if (await User.checkAuthenticatedUser(req.body.user)){
         console.log("its the right user")
         res.status(200).json({message: "all good"})
     }
@@ -17,8 +17,9 @@ userRouter.post('/signin', async (req, res) => {
 });
 
 userRouter.post('/signup', async (req, res) => {
+    let user;
     try{
-        await createAuthenticatedUser(req.body.user)
+        user = await User.createAuthenticatedUser(req.body.user)
     }
     catch (error){
         console.log('error signing up')
@@ -26,7 +27,14 @@ userRouter.post('/signup', async (req, res) => {
         res.status(400).json({message: "error signing up"})
         return
     }
-    res.status(200).json({message: "all good"})
+
+    let payload = user.id
+    let token = await generate_token({ payload })
+    res
+        .status(200)
+        .cookie("token", token)
+        .json({ message: "all good",
+                user: user }); 
 });
 
 // async function test(){
@@ -39,26 +47,7 @@ userRouter.post('/signup', async (req, res) => {
 //     console.log( await checkAuthenticatedUser({ name: "Richard", email: "richard@yahoo", password: "hello" }))
 // }
 
-async function createAuthenticatedUser(user){
-    const {password} = user
-    let salt = await BCrypt.genSalt(10);
-    let secure_password = await BCrypt.hash(password, salt)
-    await User.create({...user, password: secure_password})
-}
 
-async function checkAuthenticatedUser(user){
-    let existingUser = await User.findOne({ email: user.email })
-    if (!existingUser) {
-        return false
-    }
-    else
-    {
-        if (await BCrypt.compare(user.password, existingUser.password)){
-            return true
-        }
-        return false
-    }
-}
 // test()
 
 

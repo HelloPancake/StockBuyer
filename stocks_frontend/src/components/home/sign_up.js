@@ -21,7 +21,7 @@ function SignUp(props) {
     const handleSubmit = async (e) => {
         const user = {email, name:username, password};
         e.preventDefault()
-        let response = await fetch('http://localhost:3001/user/signup', {
+        let response = await fetch('/user/signup', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -29,8 +29,6 @@ function SignUp(props) {
             body: JSON.stringify({user})
         })
         console.log(await response.json())
-
-
     }
 
     return (

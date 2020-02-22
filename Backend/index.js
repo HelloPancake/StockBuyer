@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const port = 3001;
 const connect = require('./db/database_config');
 const User = require('./db/models/user');
@@ -14,6 +15,7 @@ initialize();
 
 app.use(cors());
 app.use(bodyParser.json())
+app.use(cookieParser())
 app.use('/user', userRouter)
 app.use('/dashboard', dashBoardRouter)
 
@@ -27,10 +29,10 @@ async function initialize(){
     catch (error){
         console.log("no database to drop")
     }
-    
-    // await User.create({
-    //     name: "Richard", email: "richard@yahoo.com", password: "hello"
-    // });
+
+    await User.createAuthenticatedUser({
+        name: "Richard", email: "richard@yahoo.com", password: "hello"
+    });
     // let found = await User.findOne({name: "Richard"})
     // console.log(found)
     // found.transactions.push("HELLO")
