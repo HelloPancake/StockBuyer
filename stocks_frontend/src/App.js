@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css'
 import {
   BrowserRouter as Router,
@@ -10,6 +10,7 @@ import SignIn from './components/home/sign_in.js';
 import SignUp from './components/home/sign_up.js';
 import Dashboard from './components/dashboard/dashboard.js';
 
+
 function App(){
 
   // componentDidMount = async () => {
@@ -17,18 +18,21 @@ function App(){
   //   const users = await response.json()
   // }
 
+  const [currentUser, changeCurrentUser] = useState({})
+  console.log(currentUser)
+
     return(
       <Router>
     
           <Switch>
-            <Route path="/dashboard">
-              <Dashboard />
+            <Route path="/dashboard" >
+              <Dashboard currentUser={currentUser}/>
             </Route>
-            <Route path="/sign_in">
-              <SignIn />
+            <Route path="/sign_in" >
+              <SignIn replaceUser={changeCurrentUser}/>
             </Route>
-            <Route path="/sign_up">
-              <SignUp />
+            <Route path="/sign_up" >
+              <SignUp replaceUser={changeCurrentUser}/>
             </Route>
             <Route path="/">
               <Home />

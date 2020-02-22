@@ -2,7 +2,7 @@ const express = require('express')
 const userRouter = express.Router();
 const User = require('../db/models/user')
 const connect = require('../db/database_config')
-const { generate_token, verify_token} = require('../util/session_token')
+const { generateToken, verifyToken} = require('../util/session_token')
 
 
 userRouter.post('/signin', async (req, res) => {
@@ -29,7 +29,7 @@ userRouter.post('/signup', async (req, res) => {
     }
 
     let payload = user.id
-    let token = await generate_token({ payload })
+    let token = await generateToken({ payload })
     res
         .status(200)
         .cookie("token", token)

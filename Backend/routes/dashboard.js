@@ -2,7 +2,22 @@ const express = require('express')
 const dashBoardRouter = express.Router();
 const User = require('../db/models/user')
 // const Transaction = require('../db/models/transaction')
-const connect = require('../db/database_config')
+const connect = require('../db/database_config');
+const {verifyToken} = require('../util/session_token');
+
+
+dashBoardRouter.use(async (request, response, next) => {
+    try{
+        const {payload: userId} = await verifyToken(request.cookies.token)
+        console.log("user authenticated")
+        request.userId = userId
+        next()
+    }
+    catch(error){
+        console.log(error.message)
+        response.status(401).json({message: error.message})
+    }
+})
 
 
 dashBoardRouter.get('/', async (req, res) => {
@@ -10,7 +25,9 @@ dashBoardRouter.get('/', async (req, res) => {
 });
 
 dashBoardRouter.get('/transactions', async (req, res) => {
-    res.json({ message: "transactions" })
+    console.log(req.userId)
+    user = await User.findById(req.userId)
+    res.status(200).json({ user })
 });
 
 dashBoardRouter.get('/portfolio', async (req, res) => {
@@ -19,7 +36,7 @@ dashBoardRouter.get('/portfolio', async (req, res) => {
 
 // post transaction
 dashBoardRouter.post('/transactions', async (req, res) => {
-    // await User.findOne({})
+    await User.findOne({})
 });
 
 

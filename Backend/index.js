@@ -33,9 +33,16 @@ async function initialize(){
     await User.createAuthenticatedUser({
         name: "Richard", email: "richard@yahoo.com", password: "hello"
     });
-    // let found = await User.findOne({name: "Richard"})
-    // console.log(found)
-    // found.transactions.push("HELLO")
-    // found.save()
-    // console.log(found)
+
+    let found = await User.findOne({name: "Richard"})
+    console.log(found)
+    found.buyStock({
+        status: "buy",
+        company:"fd",
+        ticker:"sdf",
+        price: 10000,
+        numShares: 5
+})
+//     await found.save()
+//     console.log(found)
 }

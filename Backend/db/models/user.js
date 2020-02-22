@@ -9,10 +9,19 @@ const userSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    funds: { type: Number, required: true, default: 5000 },
-    date: { type: Date, default: Date.now },
+    funds: { type: Number, required: true, default: 5000, validate: {
+        validator: funds => funds >=0,
+        message: "cannot be negative"
+    } },
+    date: { type: Date, default: Date.now() },
     transactions: [transactionSchema]
 });
+
+userSchema.methods.buyStock = async function buyStock(transaction){
+    this.transactions.push({...transaction, status:"buy"})
+    this.funds = this.funds - (transaction.price * transaction.numShares)
+    await this.save()
+}
 
 userSchema.statics.createAuthenticatedUser = async function createAuthenticatedUser(user) {
     const { password } = user
@@ -33,8 +42,5 @@ userSchema.statics.checkAuthenticatedUser = async function checkAuthenticatedUse
         return false
     }
 }
-
-
-
 
 module.exports = mongoose.model('User', userSchema);

@@ -28,7 +28,11 @@ function SignUp(props) {
             },
             body: JSON.stringify({user})
         })
-        console.log(await response.json())
+        let currentUser = await response.json()
+        // console.log(props)
+        props.replaceUser(currentUser.user)
+        console.log(document.cookie)
+        
     }
 
     return (

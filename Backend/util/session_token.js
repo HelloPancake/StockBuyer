@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
 const PRIVATE_KEY = "49E5F770B29009F40A4437FB60D7640C589FB2049DEA767AF38F994003D25FA1"
 
-const generate_token = (payload) => {
+const generateToken = (payload) => {
     const oneHour = 60 * 60
-    
+
     return new Promise((resolve, reject) => {
         jwt.sign(payload, PRIVATE_KEY,
         {expiresIn: oneHour}, (error, token) => {
@@ -18,7 +18,7 @@ const generate_token = (payload) => {
 
 }
 
-const verify_token = (token) => {
+const verifyToken = (token) => {
     return new Promise((resolve, reject) => {
         jwt.verify(token, PRIVATE_KEY, (error, payload) => {
             if(error){
@@ -33,12 +33,12 @@ const verify_token = (token) => {
 }
 
 // const test = async () => {
-//     let token = await generate_token()
+//     let token = await generateToken()
 //     console.log(token)
-//     let payload = await verify_token(token)
+//     let payload = await verifyToken(token)
 //     console.log(payload)
 // }
 
 // test()
-module.exports = {generate_token, verify_token}
+module.exports = {generateToken, verifyToken}
 
