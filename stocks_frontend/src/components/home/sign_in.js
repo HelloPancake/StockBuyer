@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 
 const SignIn = (props) => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
    
-    const handleUsernameChange = (e) => {
-        setUsername(e.target.value)
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
     }
 
     const handlePasswordChange = (e) => {
@@ -14,33 +15,54 @@ const SignIn = (props) => {
     }
 
     const handleSubmit = async (e) => {
-        const user = { email: username, password };
+        const user = { email, password };
         e.preventDefault()
-        let response = await fetch('http://localhost:3001/user/signin', {
+        let response = await fetch('/user/signin', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ user })
         })
-        console.log(await response.json())
+        let currentUser = await response.json()
+        props.replaceUser(currentUser.user)
+        props.history.push('/dashboard')
     }
-
-
  
     return(
-        <div className = "home">
-            <form onSubmit={handleSubmit} className="formAttributes">
-                <label>
-                    <div>Stock Bets</div>
-                    <div>username:<input type="text" value={username} onChange={handleUsernameChange} /></div>
-                    <div>password:<input type="text" value={password} onChange={handlePasswordChange} /></div>
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+        <div id="home">
+            <div className="ui centered card" >
+                <div className="content">
+                    <div className="header">
+                        sign in
+                    </div>
+                </div>
+
+                <div className="content">
+
+
+                    <form onSubmit={handleSubmit} className="ui form">
+                        <div className="field">
+                            <label>email: </label>
+                            <input type="text" value={email} onChange={handleEmailChange} />
+                        </div>
+
+                        <div className="field">
+                            <label>password: </label>
+                            <input type="password" value={password} onChange={handlePasswordChange} />
+                        </div>
+
+                        <button type="submit" value="Submit" className="ui green button">submit</button>
+                    </form>
+                </div>
+
+                <div className="content">
+                    <Link to='sign_up'>sign up</Link>
+                </div>
+            </div>
         </div>
+
     )
-    
 }
 
 export default SignIn;

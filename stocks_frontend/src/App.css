@@ -1,4 +1,19 @@
-#root {
+#home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
     width: 100%;
+    position: absolute;    
+    
+}
+
+#homecard{
+    display: flex;
+    flex-direction: column;
+}
+
+#dashboard{
+    display:flex;
+    flex-direction: row;
 }

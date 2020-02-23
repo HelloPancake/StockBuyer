@@ -19,28 +19,29 @@ function App(){
   // }
 
   const [currentUser, changeCurrentUser] = useState({})
-  console.log(currentUser)
-
-    return(
+    return <>
       <Router>
-    
           <Switch>
-            <Route path="/dashboard" >
-              <Dashboard currentUser={currentUser}/>
-            </Route>
-            <Route path="/sign_in" >
-              <SignIn replaceUser={changeCurrentUser}/>
-            </Route>
-            <Route path="/sign_up" >
-              <SignUp replaceUser={changeCurrentUser}/>
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
+            <Route path="/dashboard" render={(routeProps) => {
+            return (<Dashboard {...routeProps }currentUser={currentUser} /> )
+            }}/>
+
+            <Route path="/sign_in" render={(routeProps) => {
+            return (<SignIn {...routeProps }replaceUser={changeCurrentUser} />)
+            }}/>
+            
+            <Route path="/sign_up" render={(routeProps) =>{
+            return (<SignUp {...routeProps} replaceUser={changeCurrentUser} />)
+            }}/>
+
+            <Route path="/" render={(routeProps) => {
+            return (<Home {...routeProps}/>)
+            }}/>
+   
           </Switch>
    
       </Router>
-    )
+    </>
 }
 
 export default App;

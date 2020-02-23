@@ -5,9 +5,10 @@ import StockSearch from './buy_stock/StockSearch';
 
 const Dashboard = (props) => {
 
+
     return(
-        <div>
-            <Portfolio />
+        <div id="dashboard">
+            <Portfolio currentUser={props.currentUser}/>
             <StockSearch />
         </div>
     )

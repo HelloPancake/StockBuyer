@@ -8,7 +8,6 @@ const connect = require('./db/database_config');
 const User = require('./db/models/user');
 const userRouter = require('./routes/user')
 const dashBoardRouter = require('./routes/dashboard')
-// const TransactionSchema = require('./db/models/transaction')
 
 
 initialize();
@@ -33,16 +32,39 @@ async function initialize(){
     await User.createAuthenticatedUser({
         name: "Richard", email: "richard@yahoo.com", password: "hello"
     });
+    // await found.save()
+    
+    let found = await User.findOne({ email: "richard@yahoo.com"})
+        // console.log(found)
 
-    let found = await User.findOne({name: "Richard"})
-    console.log(found)
-    found.buyStock({
-        status: "buy",
-        company:"fd",
-        ticker:"sdf",
-        price: 10000,
-        numShares: 5
-})
-//     await found.save()
-//     console.log(found)
+        found.transactions.push({
+            status: "buy",
+            company: "fd",
+            ticker: "sdf",
+            price: 10,
+            numShares: 20
+        })        
+        found.transactions.push({
+            status: "buy",
+            company: "ibm",
+            ticker: "ibm",
+            price: 10,
+            numShares: 20
+        })        
+        found.transactions.push({
+            status: "buy",
+            company: "water",
+            ticker: "wad",
+            price: 10,
+            numShares: 20
+        })        
+
+        await found.save()
+        // found.buyStock({
+        //     company:"fd",
+        //     ticker:"sdf",
+        //     price: 10,
+        //     numShares: 20
+        // })
+
 }

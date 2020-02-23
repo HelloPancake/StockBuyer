@@ -30,19 +30,21 @@ const StockSearch = (props) => {
 
     return(
         <div>
+            
             {buyStock}
             {stockPrice}
             <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} />
 
-            <form onSubmit={handleSubmit}>
-                <label>
-                stock symbol:<input type="text" value={stock} onChange={handleChange}/>
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
             <InputShares handleShares={handleShares} stockPrice={stockPrice} stock={buyStock} shares={shares}/>
+            <form onSubmit={handleSubmit} className="ui form">
+                <div className="field">
+                    <label>stock symbol:</label>
+                    <input type="text" value={stock} onChange={handleChange}/>
+                </div>
+                
+                <button type="submit" value="Submit" className="ui green button"> look up </button>
+            </form>
             <BuyButton shares={shares} stockPrice={stockPrice} stock={buyStock}/>
-            
         </div>
     )
 }

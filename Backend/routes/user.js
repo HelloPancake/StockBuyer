@@ -8,11 +8,21 @@ const { generateToken, verifyToken} = require('../util/session_token')
 userRouter.post('/signin', async (req, res) => {
     if (await User.checkAuthenticatedUser(req.body.user)){
         console.log("its the right user")
-        res.status(200).json({message: "all good"})
+    
+        let user = req.body.user
+        let payload = user.id
+        let userObject = await User.findOne({email: user.email})
+        let token = await generateToken({ payload })
+        res
+            .status(200)
+            .cookie("token", token)
+            .json({message: "all good",
+                    user: userObject});
+        
     }
     else {
         console.log("not the right user")
-        res.status(400).json({message: "not the right user"})
+        res.status(500).json({message: "not the right user"})
     }
 });
 
