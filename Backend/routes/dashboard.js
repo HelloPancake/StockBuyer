@@ -1,9 +1,8 @@
 const express = require('express')
 const dashBoardRouter = express.Router();
 const User = require('../db/models/user')
-// const Transaction = require('../db/models/transaction')
 const connect = require('../db/database_config');
-const {verifyToken} = require('../util/session_token');
+const {verifyToken, generateToken} = require('../util/session_token');
 
 
 dashBoardRouter.use(async (request, response, next) => {
@@ -14,6 +13,7 @@ dashBoardRouter.use(async (request, response, next) => {
         next()
     }
     catch(error){
+        console.log(request.cookies.token)
         console.log(error.message)
         response.status(401).json({message: error.message})
     }
@@ -30,13 +30,29 @@ dashBoardRouter.get('/transactions', async (req, res) => {
     res.status(200).json({ user })
 });
 
-dashBoardRouter.get('/portfolio', async (req, res) => {
-    res.json({ message: "portfolio" })
-});
+// dashBoardRouter.get('/portfolio', async (req, res) => {
+//     res.json({ message: "portfolio" })
+// });
 
 // post transaction
 dashBoardRouter.post('/transactions', async (req, res) => {
-    await User.findOne({})
+    let {stock, price, shares, user, companyName} = req.body.transaction
+    user = await User.findOne({email: user.email})
+    let payload = user.id
+    let token = await generateToken({payload})
+    let transaction = {ticker: stock, price, numShares: shares, company: companyName}
+    await user.buyStock(transaction)
+    user = await User.findOne({ email: user.email })
+    
+    res
+        .status(200)
+        .cookie("token", token)
+        .json({
+            message: "all good",
+            user: user
+        });
+
+   
 });
 
 

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
     status: { type: String, required: true, enum: ["buy", "sell"] },
-    company: { type: String, required: true },
+    company: { type: String, required: true},
     ticker: { type: String, required: true },
     price: { type: Number, required: true, validate:{
         validator: price => price >= 0,

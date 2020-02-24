@@ -8,6 +8,7 @@ const StockSearch = (props) => {
     const [stock, changeStock] = useState("")
     const [stockPrice, changeStockPrice] = useState("")
     const [buyStock, changeBuyStock] = useState("")
+    const [buyCompany, changeBuyCompany] = useState("")
     const [shares, changeShares] = useState(0)
 
     
@@ -15,7 +16,8 @@ const StockSearch = (props) => {
         e.preventDefault();
         let stockInfo = await PingApi(stock);
         changeStockPrice(stockInfo.latestPrice);
-        changeBuyStock(stockInfo.companyName);
+        changeBuyStock(stockInfo.symbol);
+        changeBuyCompany(stockInfo.companyName);
         changeStock("")
         changeShares(0)
     }
@@ -30,7 +32,7 @@ const StockSearch = (props) => {
 
     return(
         <div>
-            
+
             {buyStock}
             {stockPrice}
             <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} />
@@ -44,7 +46,7 @@ const StockSearch = (props) => {
                 
                 <button type="submit" value="Submit" className="ui green button"> look up </button>
             </form>
-            <BuyButton shares={shares} stockPrice={stockPrice} stock={buyStock}/>
+            <BuyButton shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} replaceUser={props.replaceUser} companyName={buyCompany}/>
         </div>
     )
 }

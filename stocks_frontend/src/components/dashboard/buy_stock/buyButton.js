@@ -8,8 +8,11 @@ const BuyButton = (props) => {
         let price = props.stockPrice;
         let shares = props.shares;
         let stock = props.stock;
-        let transaction = {price, shares, stock}
-        let response = await fetch("http://localhost3001/transactions", {
+        let user = props.currentUser
+        let companyName = props.companyName
+        let transaction = {price, shares, stock, user, companyName}
+        console.log(transaction)
+        let response = await fetch("/dashboard/transactions", {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -17,6 +20,8 @@ const BuyButton = (props) => {
             body: JSON.stringify({ transaction }) 
         })
 
+        let res = await response.json()
+        props.replaceUser(res.user)
     }
 
     if (props.stockPrice && props.shares){

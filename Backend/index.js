@@ -30,11 +30,11 @@ async function initialize(){
     }
 
     await User.createAuthenticatedUser({
-        name: "Richard", email: "richard@yahoo.com", password: "hello"
+        name: "Richard", email: "abc", password: "abc"
     });
     // await found.save()
     
-    let found = await User.findOne({ email: "richard@yahoo.com"})
+    let found = await User.findOne({ email: "abc"})
         // console.log(found)
 
         found.transactions.push({

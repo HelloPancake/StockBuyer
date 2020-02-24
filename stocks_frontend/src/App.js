@@ -19,11 +19,13 @@ function App(){
   // }
 
   const [currentUser, changeCurrentUser] = useState({})
+  // console.log(currentUser)
+
     return <>
       <Router>
           <Switch>
             <Route path="/dashboard" render={(routeProps) => {
-            return (<Dashboard {...routeProps }currentUser={currentUser} /> )
+            return (<Dashboard {...routeProps} currentUser={currentUser} replaceUser={changeCurrentUser}/> )
             }}/>
 
             <Route path="/sign_in" render={(routeProps) => {
