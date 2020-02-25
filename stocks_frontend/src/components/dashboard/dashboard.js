@@ -1,6 +1,8 @@
 import React from 'react';
 import Portfolio from './portfolio/portfolio';
 import StockSearch from './buy_stock/StockSearch';
+import getCurrPriceDivs from '../dashboard/portfolio/currPriceDivs';
+
 
 
 const Dashboard = (props) => {
@@ -8,7 +10,6 @@ const Dashboard = (props) => {
     const portfolioHash = {}
     const transactionArr = []
 
-    console.log(currentUser)
 
     if ("transactions" in currentUser) {
         currentUser.transactions.forEach((transaction) => {
@@ -28,7 +29,8 @@ const Dashboard = (props) => {
         })
     }
 
-
+    const currPriceDivs = getCurrPriceDivs(portfolioHash)
+    
     return(
         <div id="dashboard">
             <div className="ui container raised segment">
@@ -36,11 +38,11 @@ const Dashboard = (props) => {
             </div>
 
             <div className="ui container raised segment">
-                <Portfolio portfolio={portfolioHash}/>
+                <h1 className="ui header">Portfolio</h1>
+                <Portfolio portfolio={portfolioHash}  portfolioHash={portfolioHash} currPriceDivs={currPriceDivs}/>
             </div>
         </div>
     )
 }
-
 
 export default Dashboard;

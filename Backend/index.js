@@ -40,21 +40,21 @@ async function initialize(){
         found.transactions.push({
             status: "buy",
             company: "fd",
-            ticker: "sdf",
+            ticker: "IBM",
             price: 10,
             numShares: 20
         })        
         found.transactions.push({
             status: "buy",
             company: "ibm",
-            ticker: "ibm",
+            ticker: "IBM",
             price: 10,
             numShares: 20
         })        
         found.transactions.push({
             status: "buy",
             company: "water",
-            ticker: "wad",
+            ticker: "IBM",
             price: 10,
             numShares: 20
         })        

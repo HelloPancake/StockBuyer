@@ -12,3 +12,15 @@
     display: flex;
     flex-direction: column;
 }
+
+#text{
+    text-align: center;
+}
+
+#topHeader{
+    margin-bottom: 0;
+}
+
+#bottomHeader{
+    margin-top: 0;
+}

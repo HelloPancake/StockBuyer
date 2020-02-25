@@ -51,8 +51,6 @@ dashBoardRouter.post('/transactions', async (req, res) => {
             message: "all good",
             user: user
         });
-
-   
 });
 
 

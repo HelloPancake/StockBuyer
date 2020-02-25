@@ -52,12 +52,12 @@ function SignUp(props) {
 
                         <div className="field">
                             <label>password: </label>
-                            <input type="password" value={password} onChange={handlePasswordChange} />
+                            <input type="password" value={password} onChange={handlePasswordChange} minLength="5"/>
                         </div>
 
                         <div className="field">
                             <label>email:</label>
-                            <input type="text" value={email} onChange={handleEmailChange} />
+                            <input type="email" value={email} onChange={handleEmailChange} required/>
                         </div>
 
                         <button type="submit" value="Submit" className="ui green button">submit</button>

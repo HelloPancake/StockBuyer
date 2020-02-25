@@ -13,13 +13,9 @@ import Dashboard from './components/dashboard/dashboard.js';
 
 function App(){
 
-  // componentDidMount = async () => {
-  //   const response = await fetch('http://localhost:3001/')
-  //   const users = await response.json()
-  // }
+
 
   const [currentUser, changeCurrentUser] = useState({})
-  // console.log(currentUser)
 
     return <>
       <Router>
