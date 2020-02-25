@@ -32,7 +32,6 @@ const StockSearch = (props) => {
 
     return(
         <div>
-
             {buyStock}
             {stockPrice}
             <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} />

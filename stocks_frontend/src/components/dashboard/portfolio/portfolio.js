@@ -17,21 +17,14 @@ const Portfolio = (props) => {
             changeCurrPriceDivs(response)
         }
         fetchData()
-    }, []);
+    }, [portfolioHash]);
     
     console.log(currPriceDivs)
     if (portfolioHash) {
         for (let stock in portfolioHash){
-            // console.log(stock)
-            // console.log(portfolioHash)
-            // console.log(portfolioArr)
-            // console.log(props.currPriceDivs)
-
-            let currPriceDiv = (stock in currPriceDivs) ? currPriceDivs[stock][0] : null
-            let currPriceDiv2 = (stock in currPriceDivs) ? currPriceDivs[stock][1] : null
+            let currPriceDiv = (stock in currPriceDivs) ? currPriceDivs[stock][0] : <td id="text">loading...</td>
+            let totalValueDiv = (stock in currPriceDivs) ? currPriceDivs[stock][1] : <td id="text">loading...</td>
             
-            console.log(props.currPriceDivs)
-
             portfolioArr.push(
                 <tr key={i}>
                     <td id="text">  
@@ -48,18 +41,13 @@ const Portfolio = (props) => {
                         {portfolioHash[stock][0]}
                     </td>
                     {currPriceDiv}
-                    {currPriceDiv2}
-
-
+                    {totalValueDiv}
                 </tr>
             )
             i += 1;
         }
-
     }
     
-
-
     return(
         <table className="ui celled table">
             <thead>
