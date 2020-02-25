@@ -11,6 +11,7 @@ const BuyButton = (props) => {
         let user = props.currentUser
         let companyName = props.companyName
         let transaction = {price, shares, stock, user, companyName}
+        console.log(transaction)
         let response = await fetch("/dashboard/transactions", {
             method: 'POST', 
             headers: {
@@ -20,14 +21,18 @@ const BuyButton = (props) => {
         })
 
         let res = await response.json()
+        props.changeShares(0)
+        props.changeStock("")
         props.replaceUser(res.user)
     }
 
     if (props.stockPrice && props.shares){
-        button = <button onClick={handleSubmit}>Order</button>
+        button = <button className="ui primary blue button" onClick={handleSubmit}>Purchase</button>
     }
     else{
-        button = null
+        button = <button className="ui disabled button">
+                    Purchase
+                 </button>
     }
 
     return(

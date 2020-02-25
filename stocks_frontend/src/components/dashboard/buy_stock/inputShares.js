@@ -4,10 +4,22 @@ const InputShares = (props) => {
     let shares;
 
     if (props.stockPrice && props.stock){
-        shares = <div>quanity: <input type="number" value={props.shares} onChange={props.handleShares} /></div>
+        shares = <div className="field">
+            <label>number of shares</label>
+            <div className="ui input">
+                <input type="number" value={props.shares} onChange={props.handleShares} />
+            </div>
+        </div>
+        
     }
     else {
-        shares = null
+        shares = <div className="field">
+                <label>number of shares</label>
+                <div className="ui disabled input"> 
+                <input type="number" value={props.shares} onChange={props.handleShares}/> 
+                </div>
+        </div>
+        
     }
     return(
        <>{shares}</>

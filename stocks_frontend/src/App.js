@@ -13,8 +13,6 @@ import Dashboard from './components/dashboard/dashboard.js';
 
 function App(){
 
-
-
   const [currentUser, changeCurrentUser] = useState({})
 
     return <>

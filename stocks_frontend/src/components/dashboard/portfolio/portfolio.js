@@ -3,13 +3,11 @@ import getCurrPriceDivs from '../../dashboard/portfolio/currPriceDivs';
 
 
 const Portfolio = (props) => {
-
     let portfolioHash = props.portfolio
     let portfolioArr = []
     let i = 0;
 
     const [currPriceDivs, changeCurrPriceDivs] = useState({})
-
 
     useEffect(() => {
         async function fetchData() {
@@ -19,12 +17,13 @@ const Portfolio = (props) => {
         fetchData()
     }, [portfolioHash]);
     
-    console.log(currPriceDivs)
+
     if (portfolioHash) {
         for (let stock in portfolioHash){
-            let currPriceDiv = (stock in currPriceDivs) ? currPriceDivs[stock][0] : <td id="text">loading...</td>
-            let totalValueDiv = (stock in currPriceDivs) ? currPriceDivs[stock][1] : <td id="text">loading...</td>
+            let currPriceDiv = (stock in currPriceDivs) ? currPriceDivs[stock][0] : <td id="text"><div className="ui active centered inline loader"></div></td>
+            let totalValueDiv = (stock in currPriceDivs) ? currPriceDivs[stock][1] : <td id="text"><div className="ui active centered inline loader"></div></td>
             
+         
             portfolioArr.push(
                 <tr key={i}>
                     <td id="text">  
@@ -32,7 +31,7 @@ const Portfolio = (props) => {
                             <h4 className="ui header" id="topHeader">
                             {stock}
                             </h4>
-                        <div className="sub header" id="bottomHeader">
+                        <div className="sub header" id="bottomHeader" style={{fontSize: "9pt", color: "grey"}}>
                             {portfolioHash[stock][2]}
                         </div>
                         </div>

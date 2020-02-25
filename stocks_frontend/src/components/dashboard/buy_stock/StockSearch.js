@@ -10,6 +10,7 @@ const StockSearch = (props) => {
     const [buyStock, changeBuyStock] = useState("")
     const [buyCompany, changeBuyCompany] = useState("")
     const [shares, changeShares] = useState(0)
+    const [status, changeStatus] = useState("")
 
     
     const handleSubmit = async (e) => {
@@ -18,8 +19,6 @@ const StockSearch = (props) => {
         changeStockPrice(stockInfo.latestPrice);
         changeBuyStock(stockInfo.symbol);
         changeBuyCompany(stockInfo.companyName);
-        changeStock("")
-        changeShares(0)
     }
 
     const handleShares = (e) => {
@@ -36,16 +35,27 @@ const StockSearch = (props) => {
             {stockPrice}
             <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} />
 
-            <InputShares handleShares={handleShares} stockPrice={stockPrice} stock={buyStock} shares={shares}/>
+
             <form onSubmit={handleSubmit} className="ui form">
+            <InputShares handleShares={handleShares} stockPrice={stockPrice} stock={buyStock} shares={shares}/>
                 <div className="field">
                     <label>stock symbol:</label>
                     <input type="text" value={stock} onChange={handleChange}/>
                 </div>
                 
-                <button type="submit" value="Submit" className="ui green button"> look up </button>
+                <button type="submit" value="Submit" className="ui left floated green button"> Look Up </button>
+                <BuyButton changeShares = {changeShares} changeStock={changeStock} shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} replaceUser={props.replaceUser} companyName={buyCompany}/>
+                
+                {/* <div class="ui placeholder segment">
+                    hello
+                </div> */}
+
+
+
+
+
             </form>
-            <BuyButton shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} replaceUser={props.replaceUser} companyName={buyCompany}/>
+
         </div>
     )
 }
