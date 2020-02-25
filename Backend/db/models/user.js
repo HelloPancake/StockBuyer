@@ -11,7 +11,7 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     funds: { type: Number, required: true, default: 5000, validate: {
         validator: funds => funds >=0,
-        message: "cannot be negative"
+        message: ":not enough funds"
     } },
     date: { type: Date, default: Date.now() },
     transactions: [transactionSchema]
@@ -20,7 +20,15 @@ const userSchema = new Schema({
 userSchema.methods.buyStock = async function buyStock(transaction){
     this.transactions.push({...transaction, status:"buy"})
     this.funds = this.funds - (transaction.price * transaction.numShares)
-    await this.save()
+    try {
+        await this.save()
+        return 200
+    }
+    catch (error){
+        console.log(error.message)
+        return 500
+    }
+    
 }
 
 userSchema.statics.createAuthenticatedUser = async function createAuthenticatedUser(user) {

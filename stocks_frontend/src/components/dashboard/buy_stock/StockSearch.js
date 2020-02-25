@@ -10,9 +10,11 @@ const StockSearch = (props) => {
     const [buyStock, changeBuyStock] = useState("")
     const [buyCompany, changeBuyCompany] = useState("")
     const [shares, changeShares] = useState(0)
-    const [status, changeStatus] = useState("")
+    const [notification, changeNotification] = useState([])
 
-    
+
+    let response = null;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         let stockInfo = await PingApi(stock);
@@ -29,6 +31,29 @@ const StockSearch = (props) => {
         changeStock(e.target.value)
     }
 
+    if (notification.length !== 0) {
+        if (notification[0] === 200){
+            response = <div className="ui tertiary green inverted segment">
+                        <i className="check circle outline icon"></i>
+                        {notification[1]}
+                        </div>
+        }
+        else if(notification[0] === 400){
+            response = <div className="ui tertiary red inverted segment">
+                        <i className="exclamation icon"></i>
+                        {notification[1]}
+                        </div>
+        }
+    }
+    else {
+        response = null
+    }
+    // console.log(response)
+
+
+
+
+
     return(
         <div>
             {buyStock}
@@ -44,15 +69,9 @@ const StockSearch = (props) => {
                 </div>
                 
                 <button type="submit" value="Submit" className="ui left floated green button"> Look Up </button>
-                <BuyButton changeShares = {changeShares} changeStock={changeStock} shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} replaceUser={props.replaceUser} companyName={buyCompany}/>
+                <BuyButton changeNotification={changeNotification} changeShares = {changeShares} changeStock={changeStock} shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} replaceUser={props.replaceUser} companyName={buyCompany}/>
                 
-                {/* <div class="ui placeholder segment">
-                    hello
-                </div> */}
-
-
-
-
+                {response}
 
             </form>
 

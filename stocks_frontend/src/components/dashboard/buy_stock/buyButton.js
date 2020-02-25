@@ -11,7 +11,6 @@ const BuyButton = (props) => {
         let user = props.currentUser
         let companyName = props.companyName
         let transaction = {price, shares, stock, user, companyName}
-        console.log(transaction)
         let response = await fetch("/dashboard/transactions", {
             method: 'POST', 
             headers: {
@@ -24,6 +23,8 @@ const BuyButton = (props) => {
         props.changeShares(0)
         props.changeStock("")
         props.replaceUser(res.user)
+        props.changeNotification([response.status, res.message])  
+        
     }
 
     if (props.stockPrice && props.shares){

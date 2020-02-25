@@ -2,9 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Portfolio from './portfolio/portfolio';
 import StockSearch from './buy_stock/StockSearch';
 import getCurrPriceDivs from '../dashboard/portfolio/currPriceDivs';
-import { Link } from "react-router-dom";
 import Transactions from './transactions/transactions';
-import { Redirect } from 'react-router-dom';
 
 
 
@@ -14,13 +12,16 @@ const Dashboard = (props) => {
     const transactionArr = []
 
     const [showPortfolio, changePortfolio] = useState(true)
+    
 
     let grid;
     let funds;
 
     useEffect(() => {
         async function fetchData() {
-            let response = await fetch('/dashboard')
+            let response = await fetch('/dashboard', {
+                method: 'HEAD'
+            })
             if (response.status === 401){
                 props.history.push('/')
             }

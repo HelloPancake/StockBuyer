@@ -20,7 +20,7 @@ dashBoardRouter.use(async (request, response, next) => {
 })
 
 
-dashBoardRouter.get('/', async (req, res) => {
+dashBoardRouter.head('/', async (req, res) => {
     res.json({message: "get"})
 });
 
@@ -41,16 +41,28 @@ dashBoardRouter.post('/transactions', async (req, res) => {
     let payload = user.id
     let token = await generateToken({payload})
     let transaction = {ticker: stock, price, numShares: shares, company: companyName}
-    await user.buyStock(transaction)
-    user = await User.findOne({ email: user.email })
+    let response = await user.buyStock(transaction)
     
-    res
-        .status(200)
-        .cookie("token", token)
-        .json({
-            message: "all good",
-            user: user
-        });
+    user = await User.findOne({ email: user.email })
+
+    if (response === 200){
+        res
+            .status(200)
+            .cookie("token", token)
+            .json({
+                message: "purchase completed",
+                user: user
+            });
+    }
+    else {
+        res
+            .status(400)
+            .cookie("token", token)
+            .json({
+                message: "not enough funds",
+                user: user
+            });
+    }
 });
 
 
