@@ -10,7 +10,7 @@ const transactionSchema = new Schema({
         message: "cannot be negative"
     }},
     numShares: { type: Number, required: true},
-    date: { type: Date, default: Date.now() }
+    date: { type: Date, default: Date.now }
 });
 
 module.exports = transactionSchema;

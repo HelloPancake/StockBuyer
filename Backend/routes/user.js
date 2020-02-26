@@ -7,7 +7,6 @@ const { generateToken, verifyToken} = require('../util/session_token')
 
 userRouter.post('/signin', async (req, res) => {
 
-
     if (await User.checkAuthenticatedUser(req.body.user)){
         console.log("its the right user")
     
@@ -40,8 +39,8 @@ userRouter.post('/signup', async (req, res) => {
         return
     }
 
-    let payload = user.id
-    let token = await generateToken({ payload })
+    let userId = user.id
+    let token = await generateToken({ userId })
     res
         .status(200)
         .cookie("token", token)

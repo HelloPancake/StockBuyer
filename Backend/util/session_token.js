@@ -3,7 +3,6 @@ const PRIVATE_KEY = "49E5F770B29009F40A4437FB60D7640C589FB2049DEA767AF38F994003D
 
 const generateToken = (payload) => {
     const oneHour = 60 * 60
-
     return new Promise((resolve, reject) => {
         jwt.sign(payload, PRIVATE_KEY,
         {expiresIn: oneHour}, (error, token) => {

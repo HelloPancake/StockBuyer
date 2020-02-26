@@ -16,8 +16,8 @@ const SignIn = (props) => {
     }
 
     const handleSubmit = async (e) => {
-        const user = { email, password };
         e.preventDefault()
+        const user = { email, password };
         let response = await fetch('/user/signin', {
             method: "POST",
             headers: {
@@ -31,7 +31,10 @@ const SignIn = (props) => {
             props.history.push('/dashboard')
         }
         else{
-            changeErrorMessage(currentUser.message)
+            changeErrorMessage(<div className="ui tertiary red inverted segment">
+                <i className="exclamation icon"></i>
+                {currentUser.message}
+            </div>)
         }
     }
  
@@ -46,7 +49,6 @@ const SignIn = (props) => {
 
                 <div className="content">
 
-
                     <form onSubmit={handleSubmit} className="ui form">
                         <div className="field">
                             <label>email: </label>
@@ -57,8 +59,8 @@ const SignIn = (props) => {
                             <label>password: </label>
                             <input type="password" value={password} onChange={handlePasswordChange} />
                         </div>
-
-                        <div>{errorMessage}</div>
+                        
+                        {errorMessage}
 
                         <button type="submit" value="Submit" className="ui green button">submit</button>
                     </form>

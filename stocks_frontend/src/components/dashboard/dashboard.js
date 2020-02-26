@@ -5,7 +5,6 @@ import getCurrPriceDivs from '../dashboard/portfolio/currPriceDivs';
 import Transactions from './transactions/transactions';
 
 
-
 const Dashboard = (props) => {
     const portfolioHash = {}
     const transactionArr = []
@@ -13,7 +12,6 @@ const Dashboard = (props) => {
     const [showPortfolio, changePortfolio] = useState(true)
     const [currentUser, changeCurrentUser] = useState({})
     
-
     let grid;
     let funds;
 
@@ -49,8 +47,11 @@ const Dashboard = (props) => {
     
     if (currentUser && "transactions" in currentUser) {
         currentUser.transactions.forEach((transaction, idx) => {
+
+            const date = transaction.date.split("T")[0];
+            const time = transaction.date.split("T")[1].split(".")[0];
+
             transactionArr.push(
-            // <div className="item">action: {transaction.status}company: {transaction.ticker} shares: {transaction.numShares} value: {transaction.numShares * transaction.price} purchaseTime:{transaction.date} ticker:{transaction.ticker}</div>
                 <tr key={idx}>
                     <td id="text">
                         <div className="content">
@@ -75,7 +76,8 @@ const Dashboard = (props) => {
                         {formatter.format(transaction.numShares * transaction.price)}
                     </td>
                     <td id="text">
-                        {transaction.date}
+                        {time}
+                        <div>{date}</div>
                     </td>
                  
                 </tr>
@@ -105,7 +107,7 @@ const Dashboard = (props) => {
                     <button onClick={handleOnClick} className="ui left floated disabled button">Portfolio</button>
                     <button onClick={handleOnClick} className="ui button">Transactions</button>
                     <button className="ui right floated disabled button" style={{color: "black", backgroundColor: 'white', fontSize: "12pt"}}>
-                            {funds}
+                            Wallet: {funds}
                     </button>
                     <Portfolio portfolio={portfolioHash} portfolioHash={portfolioHash} currPriceDivs={currPriceDivs} />
                 </div>

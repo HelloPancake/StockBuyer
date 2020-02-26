@@ -27,7 +27,6 @@ dashBoardRouter.get('/transactions', async (request, response) => {
 });
 
 
-// post transaction
 dashBoardRouter.post('/transactions', async (req, res) => {
     let {stock, price, shares, user, companyName} = req.body.transaction
     let currUser = await User.findOne({email: user.email})

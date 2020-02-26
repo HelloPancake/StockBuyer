@@ -48,17 +48,12 @@ const StockSearch = (props) => {
     else {
         response = null
     }
-    // console.log(response)
-
-
-
-
 
     return(
         <div>
-            {buyStock}
-            {stockPrice}
-            <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} />
+            {/* {buyStock}
+            {stockPrice} */}
+            <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} buyStock={buyStock} buyCompany={buyCompany}/>
 
 
             <form onSubmit={handleSubmit} className="ui form">
@@ -69,7 +64,10 @@ const StockSearch = (props) => {
                 </div>
                 
                 <button type="submit" value="Submit" className="ui left floated green button"> Look Up </button>
-                <BuyButton changeNotification={changeNotification} changeShares = {changeShares} changeStock={changeStock} shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} replaceUser={props.replaceUser} companyName={buyCompany}/>
+
+                <BuyButton changeNotification={changeNotification} changeShares = {changeShares} changeStock={changeStock} 
+                shares={shares} stockPrice={stockPrice} stock={buyStock} currentUser={props.currentUser} 
+                replaceUser={props.replaceUser} companyName={buyCompany}/>
                 
                 {response}
 
