@@ -6,18 +6,20 @@ const { generateToken, verifyToken} = require('../util/session_token')
 
 
 userRouter.post('/signin', async (req, res) => {
+
+
     if (await User.checkAuthenticatedUser(req.body.user)){
         console.log("its the right user")
     
-        let user = req.body.user
-        let payload = user.id
-        let userObject = await User.findOne({email: user.email})
-        let token = await generateToken({ payload })
+        let user = await User.findOne({email: req.body.user.email})
+        let userId = user.id
+        let token = await generateToken({ userId })
+        
         res
             .status(200)
             .cookie("token", token)
             .json({message: "all good",
-                    user: userObject});
+                    user: user});
         
     }
     else {

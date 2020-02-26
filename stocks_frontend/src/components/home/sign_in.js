@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 const SignIn = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, changeErrorMessage] = useState("")
 
    
     const handleEmailChange = (e) => {
@@ -25,8 +26,13 @@ const SignIn = (props) => {
             body: JSON.stringify({ user })
         })
         let currentUser = await response.json()
-        props.replaceUser(currentUser.user)
-        props.history.push('/dashboard')
+        
+        if(response.status === 200){
+            props.history.push('/dashboard')
+        }
+        else{
+            changeErrorMessage(currentUser.message)
+        }
     }
  
     return(
@@ -51,6 +57,8 @@ const SignIn = (props) => {
                             <label>password: </label>
                             <input type="password" value={password} onChange={handlePasswordChange} />
                         </div>
+
+                        <div>{errorMessage}</div>
 
                         <button type="submit" value="Submit" className="ui green button">submit</button>
                     </form>

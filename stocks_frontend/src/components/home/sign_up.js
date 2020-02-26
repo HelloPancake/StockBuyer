@@ -6,6 +6,7 @@ function SignUp(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const [errorMessage, changeErrorMessage] = useState("")
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -30,8 +31,14 @@ function SignUp(props) {
             body: JSON.stringify({ user })
         })
         let currentUser = await response.json()
-        props.replaceUser(currentUser.user)
-        props.history.push('/dashboard')
+        
+        if (response.status === 200) {
+            props.history.push('/dashboard')
+        }
+        else{
+            changeErrorMessage(currentUser.message)
+        }
+        
     }
 
     return <>
@@ -59,6 +66,8 @@ function SignUp(props) {
                             <label>email:</label>
                             <input type="email" value={email} onChange={handleEmailChange} required/>
                         </div>
+
+                        <div>{errorMessage}</div>
 
                         <button type="submit" value="Submit" className="ui green button">submit</button>
                     </form>

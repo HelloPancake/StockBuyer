@@ -7,11 +7,11 @@ import Transactions from './transactions/transactions';
 
 
 const Dashboard = (props) => {
-    const currentUser = props.currentUser
     const portfolioHash = {}
     const transactionArr = []
 
     const [showPortfolio, changePortfolio] = useState(true)
+    const [currentUser, changeCurrentUser] = useState({})
     
 
     let grid;
@@ -19,12 +19,20 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         async function fetchData() {
-            let response = await fetch('/dashboard', {
-                method: 'HEAD'
+            let response = await fetch('/dashboard/transactions', {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
+            let user = await response.json()
+
             if (response.status === 401){
                 props.history.push('/')
             }
+            console.log(user)
+            changeCurrentUser(user.user)
         }
         fetchData();
     }, [])
@@ -39,7 +47,7 @@ const Dashboard = (props) => {
     });
 
     
-    if ("transactions" in currentUser) {
+    if (currentUser && "transactions" in currentUser) {
         currentUser.transactions.forEach((transaction, idx) => {
             transactionArr.push(
             // <div className="item">action: {transaction.status}company: {transaction.ticker} shares: {transaction.numShares} value: {transaction.numShares * transaction.price} purchaseTime:{transaction.date} ticker:{transaction.ticker}</div>
@@ -87,7 +95,7 @@ const Dashboard = (props) => {
         })
     }
 
-    funds = (currentUser.funds) ? formatter.format(currentUser.funds) : null
+    funds = (currentUser && currentUser.funds) ? formatter.format(currentUser.funds) : null
 
 
     const currPriceDivs = getCurrPriceDivs(portfolioHash)
@@ -114,7 +122,7 @@ const Dashboard = (props) => {
     return(
         <div id="dashboard">
             <div className="ui container raised segment">
-                <StockSearch currentUser={currentUser} replaceUser={props.replaceUser}/>
+                <StockSearch currentUser={currentUser} replaceUser={changeCurrentUser}/>
             </div>
             {grid}
             

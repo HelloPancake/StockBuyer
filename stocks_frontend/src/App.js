@@ -13,21 +13,20 @@ import Dashboard from './components/dashboard/dashboard.js';
 
 function App(){
 
-  const [currentUser, changeCurrentUser] = useState({})
 
     return <>
       <Router>
           <Switch>
             <Route path="/dashboard" render={(routeProps) => {
-            return (<Dashboard {...routeProps} currentUser={currentUser} replaceUser={changeCurrentUser}/> )
+            return (<Dashboard {...routeProps}/> )
             }}/>
 
             <Route path="/sign_in" render={(routeProps) => {
-            return (<SignIn {...routeProps }replaceUser={changeCurrentUser} />)
+            return (<SignIn {...routeProps }/>)
             }}/>
             
             <Route path="/sign_up" render={(routeProps) =>{
-            return (<SignUp {...routeProps} replaceUser={changeCurrentUser} />)
+            return (<SignUp {...routeProps}  />)
             }}/>
 
             <Route path="/" render={(routeProps) => {

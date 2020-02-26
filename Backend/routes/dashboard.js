@@ -7,15 +7,12 @@ const {verifyToken, generateToken} = require('../util/session_token');
 
 dashBoardRouter.use(async (request, response, next) => {
     try{
-        const {payload: userId} = await verifyToken(request.cookies.token)
-        console.log("user authenticated")
-        request.userId = userId
+        const payload = await verifyToken(request.cookies.token)
+        request.userId = payload.userId
         next()
     }
     catch(error){
-        console.log(request.cookies.token)
-        console.log(error.message)
-        response.status(401).json({message: error.message})
+        response.status(401).clearCookie('token').json({message: error.message})
     }
 })
 
@@ -24,26 +21,22 @@ dashBoardRouter.head('/', async (req, res) => {
     res.json({message: "get"})
 });
 
-dashBoardRouter.get('/transactions', async (req, res) => {
-    console.log(req.userId)
-    user = await User.findById(req.userId)
-    res.status(200).json({ user })
+dashBoardRouter.get('/transactions', async (request, response) => {
+    const user = await User.findById(request.userId)
+    response.status(200).json({ user })
 });
 
-// dashBoardRouter.get('/portfolio', async (req, res) => {
-//     res.json({ message: "portfolio" })
-// });
 
 // post transaction
 dashBoardRouter.post('/transactions', async (req, res) => {
     let {stock, price, shares, user, companyName} = req.body.transaction
-    user = await User.findOne({email: user.email})
-    let payload = user.id
-    let token = await generateToken({payload})
+    let currUser = await User.findOne({email: user.email})
+    let userId = currUser.id
+    let token = await generateToken({userId})
     let transaction = {ticker: stock, price, numShares: shares, company: companyName}
-    let response = await user.buyStock(transaction)
+    let response = await currUser.buyStock(transaction)
     
-    user = await User.findOne({ email: user.email })
+    currUser = await User.findById(userId)
 
     if (response === 200){
         res
@@ -51,7 +44,7 @@ dashBoardRouter.post('/transactions', async (req, res) => {
             .cookie("token", token)
             .json({
                 message: "purchase completed",
-                user: user
+                user: currUser
             });
     }
     else {
@@ -60,7 +53,7 @@ dashBoardRouter.post('/transactions', async (req, res) => {
             .cookie("token", token)
             .json({
                 message: "not enough funds",
-                user: user
+                user: currUser
             });
     }
 });
