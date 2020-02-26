@@ -9,7 +9,10 @@ const transactionSchema = new Schema({
         validator: price => price >= 0,
         message: "cannot be negative"
     }},
-    numShares: { type: Number, required: true},
+    numShares: { type: Number, required: true, validate:{
+        validator: numShares => numShares >= 0,
+        message: "cannot buy negative shares"
+    }},
     date: { type: Date, default: Date.now }
 });
 

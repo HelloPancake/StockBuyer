@@ -44,6 +44,13 @@ const StockSearch = (props) => {
                         {notification[1]}
                         </div>
         }
+        else if(notification[0] === 401){
+            response = <div className="ui tertiary red inverted segment">
+                        <i className="exclamation icon"></i>
+                        {notification[1]}
+                        </div>
+        }
+
     }
     else {
         response = null
@@ -51,8 +58,7 @@ const StockSearch = (props) => {
 
     return(
         <div>
-            {/* {buyStock}
-            {stockPrice} */}
+            
             <TotalPrice shares={shares} stockPrice={stockPrice} stock={buyStock} buyStock={buyStock} buyCompany={buyCompany}/>
 
 

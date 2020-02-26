@@ -46,12 +46,21 @@ dashBoardRouter.post('/transactions', async (req, res) => {
                 user: currUser
             });
     }
-    else {
+    else if(response === 400){
         res
             .status(400)
             .cookie("token", token)
             .json({
                 message: "not enough funds",
+                user: currUser
+            });
+    }
+    else{
+        res
+            .status(401)
+            .cookie("token", token)
+            .json({
+                message: "cant buy negative shares",
                 user: currUser
             });
     }
