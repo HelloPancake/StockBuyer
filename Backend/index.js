@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const port = 3001;
+const port = process.env.PORT || 3001;
 const connect = require('./db/database_config');
 const User = require('./db/models/user');
 const userRouter = require('./routes/user')
@@ -68,3 +68,5 @@ async function initialize(){
         // })
 
 }
+
+
