@@ -33,8 +33,8 @@ userRouter.post('/signup', async (req, res) => {
         user = await User.createAuthenticatedUser(req.body.user)
     }
     catch (error){
-        console.log('error signing up')
-        console.log(error)
+        // console.log('error signing up')
+        // console.log(error)
         res.status(400).json({message: error.message})
         return
     }

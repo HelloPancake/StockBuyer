@@ -10,7 +10,7 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     funds: { type: Number, required: true, default: 5000, validate: {
-        validator: funds => funds >=0,
+        validator: funds => funds >= 0,
         message: ":not enough funds"
     } },
     date: { type: Date, default: Date.now() },
