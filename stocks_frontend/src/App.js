@@ -29,7 +29,7 @@ function App(){
             return (<SignUp {...routeProps}  />)
             }}/>
 
-            <Route path="/" render={(routeProps) => {
+            <Route path="/home" render={(routeProps) => {
             return (<Home {...routeProps}/>)
             }}/>
    

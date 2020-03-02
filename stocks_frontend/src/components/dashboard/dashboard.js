@@ -27,7 +27,7 @@ const Dashboard = (props) => {
             let user = await response.json()
 
             if (response.status === 401){
-                props.history.push('/')
+                props.history.push('/home')
             }
             console.log(user)
             changeCurrentUser(user.user)
