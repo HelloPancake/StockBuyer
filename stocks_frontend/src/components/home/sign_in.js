@@ -18,7 +18,7 @@ const SignIn = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const user = { email, password };
-        let response = await fetch('/user/signin', {
+        let response = await fetch('/api/user/signin', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

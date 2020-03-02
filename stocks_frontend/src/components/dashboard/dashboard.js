@@ -17,7 +17,7 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         async function fetchData() {
-            let response = await fetch('/dashboard/transactions', {
+            let response = await fetch('/api/dashboard/transactions', {
                 method: "GET",
                 credentials: 'include',
                 headers: {

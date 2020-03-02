@@ -11,7 +11,7 @@ const BuyButton = (props) => {
         let user = props.currentUser
         let companyName = props.companyName
         let transaction = {price, shares, stock, user, companyName}
-        let response = await fetch("/dashboard/transactions", {
+        let response = await fetch("/api/dashboard/transactions", {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'

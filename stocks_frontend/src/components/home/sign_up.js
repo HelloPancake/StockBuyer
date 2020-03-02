@@ -23,7 +23,7 @@ function SignUp(props) {
     const handleSubmit = async (e) => {
         const user = { email, name: username, password };
         e.preventDefault()
-        let response = await fetch('/user/signup', {
+        let response = await fetch('/api/user/signup', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

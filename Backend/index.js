@@ -12,17 +12,17 @@ const dashBoardRouter = require('./routes/dashboard')
 const path = require('path');
 
 app.use(express.static(path.join(__dirname, '../stocks_frontend/build')));
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 initialize();
 
 app.use(cors());
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use('/user', userRouter)
-app.use('/dashboard', dashBoardRouter)
+app.use('/api/user', userRouter)
+app.use('/api/dashboard', dashBoardRouter)
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../stocks_frontend/build', 'index.html'));
+});
 
 app.listen(port, () => console.log(`Express running on ${port}!`));
 
