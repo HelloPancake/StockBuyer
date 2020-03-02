@@ -21,7 +21,7 @@ function App(){
             return (<Dashboard {...routeProps}/> )
             }}/>
 
-            <Route path="/sign_in" render={(routeProps) => {
+            <Route path={["/", "/sign_in"]} render={(routeProps) => {
             return (<SignIn {...routeProps }/>)
             }}/>
             
