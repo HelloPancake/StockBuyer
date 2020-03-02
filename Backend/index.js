@@ -3,12 +3,18 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const port = process.env.PORT || 3001;
+const port = 80;
 const connect = require('./db/database_config');
 const User = require('./db/models/user');
 const userRouter = require('./routes/user')
 const dashBoardRouter = require('./routes/dashboard')
 
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, '../stocks_frontend/build')));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 initialize();
 
